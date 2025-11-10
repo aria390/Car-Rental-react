@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <header className="w-full">
       <div className="w-full h-14 bg-[#F1F5F9] flex justify-between items-center px-5 border-b-1 border-gray-400">
-        <img className="w-40 h-30" src={logoHeader} alt="" />
+        <a href="/"><img className="w-40 h-30" src={logoHeader} alt="" /></a>
         <img
           onClick={() => {
             if (open) {
