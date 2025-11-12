@@ -1,8 +1,11 @@
 import React from "react";
 import Header from "../Components/Header";
 import LuxurycarsonRent from "../Components/LuxurycarsonRent";
-import FeacherdCar from "../Components/feacherdCar";
+import FeacherdCar from "../Components/FeacherdCar";
 import ListYourCar from "../Components/ListYourCar";
+import What_Our_Customers_Say from "../Components/What_Our_Customers_Say";
+import Deal from "../Components/Deal";
+import Footer from "../Components/Footer";
 
 const Home = () => {
   return (
@@ -11,6 +14,9 @@ const Home = () => {
       <LuxurycarsonRent />
       <FeacherdCar />
       <ListYourCar />
+      <What_Our_Customers_Say />
+      <Deal />
+      <Footer/>
     </div>
   );
 };
