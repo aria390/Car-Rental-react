@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router";
 
 type postsType = {
   brand: string;
@@ -24,9 +23,8 @@ type postsType = {
   _id: string;
 };
 
-const FeacherdCar = () => {
+const FeacherdCar_CarMenu = () => {
   const [post, setPost] = useState<postsType[]>([]);
-  const nagetive = useNavigate();
   const getPost = async () => {
     const { data } = await axios("/api/user/cars");
     setPost(data.cars);
@@ -34,40 +32,17 @@ const FeacherdCar = () => {
   useEffect(() => {
     getPost();
   }, []);
-
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      transition={{
-        duration: 3,
-      }}
-      whileInView={{
-        opacity: 1,
-      }}
-      viewport={{
-        once: true,
-      }}
-      className="flex flex-col gap-20 px-6 py-24 bg-white"
-    >
-      <div className="flex flex-col gap-2 justify-center items-center">
-        <p className="text-[36px] font-semibold sm:text-[40px]">
-          Featured Vehicles
-        </p>
-        <p className="text-center text-[14px] sm:text-[16px] text-gray-500">
-          Explore our selection of premium vehicles available for your next
-          adventure.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 sm:grid-rows-2 grid-rows-6 gap-y-8 sm:gap-x-8 sm:px-40">
-        {post.slice(0, 6).map((item) => (
+    <>
+      <p className="pt-20 px-6 pb-6  sm:px-40 text-gray-400">Showing 8 cars</p>
+      <div className="grid grid-cols-1 sm:pb-60 sm:grid-cols-3 sm:grid-rows-2 grid-rows-6 gap-y-8 px-6 pb-30 sm:gap-x-8 sm:px-40">
+        {post.map((item) => (
           <motion.div
             initial={{
               opacity: 0,
             }}
             transition={{
-              duration: 3,
+              duration: 1,
             }}
             whileInView={{
               opacity: 1,
@@ -196,44 +171,8 @@ const FeacherdCar = () => {
           </motion.div>
         ))}
       </div>
-      <div className="flex justify-center">
-        <button
-          onClick={() => {
-            nagetive("/cars");
-          }}
-          className="px-6 py-2 border cursor-pointer border-gray-400 rounded-md hover:bg-[#f1f5f9]"
-        >
-          <p className="flex gap-2 items-center justify-center">
-            Explore all cars
-            <span>
-              <svg
-                width="15"
-                height="12"
-                viewBox="0 0 15 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0.749973 5.6217L13.8409 5.6217"
-                  stroke="#2B3441"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M8.69802 0.749992L13.8409 5.62042L8.69802 10.4908"
-                  stroke="#2B3441"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-          </p>
-        </button>
-      </div>
-    </motion.div>
+    </>
   );
 };
 
-export default FeacherdCar;
+export default FeacherdCar_CarMenu;

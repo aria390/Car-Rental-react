@@ -1,42 +1,154 @@
 import React, { useState } from "react";
 import logoHeader from "../img/logoH.svg";
 import listHeader from "../img/listHeader.svg";
+import { useLocation, useNavigate } from "react-router";
+import useTrueOrFalse from "../store/TueOrFalse";
 import clsx from "clsx";
+import Login from "./Login";
 
 const Header = () => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const { isOpenLogin, setIsOpenLogin } = useTrueOrFalse();
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
-    <header className="w-full">
-      <div className="w-full h-14 bg-[#F1F5F9] flex justify-between items-center px-5 border-b-1 border-gray-400">
-        <a href="/"><img className="w-40 h-30" src={logoHeader} alt="" /></a>
-        <img
-          onClick={() => {
-            if (open) {
-              setOpen(false);
-            } else {
-              setOpen(true);
-            }
-          }}
-          className="w-5 h-4 cursor-pointer"
-          src={listHeader}
-          alt=""
-        />
+    <header
+      className={clsx(
+        "flex w-full px-5 sm:justify-around sm:h-[85px] h-[65px] justify-between items-center border-b border-b-gray-300 ",
+        {
+          "bg-[#f1f5f9]": location.pathname === "/",
+        }
+      )}
+    >
+      <img
+      onClick={()=>{
+        navigate("/")
+      }}
+        className="hover:scale-105 transition-all cursor-pointer"
+        src={logoHeader}
+        alt=""
+      />
+      <div className="hidden sm:flex gap-8   items-center">
+        <ul className="sm:flex gap-8 *:text-gray-600 *:cursor-pointer">
+          <li
+            onClick={() => {
+              navigate("/");
+              setIsOpen(false);
+            }}
+          >
+            Home
+          </li>
+          <li
+            onClick={() => {
+              navigate("/cars");
+              setIsOpen(false);
+            }}
+          >
+            Cars
+          </li>
+          <li
+            onClick={() => {
+              navigate("/MyBooking");
+              setIsOpen(false);
+            }}
+          >
+            My Booking
+          </li>
+        </ul>
+        <div className="sm:flex gap-2 border px-2 py-1 rounded-2xl border-gray-300">
+          <input
+            className="placeholder:text-gray-500 outline-0"
+            placeholder="search cars"
+            type="text"
+          />
+        </div>
+        <div className="sm:flex gap-6">
+          <button className="text-gray-600 cursor-pointer">List cars</button>
+          <button
+            onClick={() => {
+              setIsOpenLogin(true);
+            }}
+            className="text-white cursor-pointer bg-[#2563eb] hover:bg-blue-700 px-8 py-2 rounded-lg"
+          >
+            Login
+          </button>
+        </div>
       </div>
-      <ul
+      <button
+        className="sm:hidden"
+        onClick={() => {
+          if (isOpen) {
+            setIsOpen(false);
+          } else {
+            setIsOpen(true);
+          }
+        }}
+      >
+        {isOpen ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#949494"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        ) : (
+          <img src={listHeader} alt="" />
+        )}
+      </button>
+      <div
         className={clsx(
-          "bg-[#F1F5F9] w-full transition-all fixed h-full flex flex-col gap-2 *:pl-4 *:text-gray-600 pt-4",
+          "fixed  flex flex-col gap-6 items-start top-16 z-50 bg-[#f1f5f9] w-full h-full p-4 transition-all duration-300",
           {
-            "-right-full": !open,
-            "right-0": open,
+            "-right-full": !isOpen,
+            "right-0": isOpen,
           }
         )}
       >
-        <li>Home</li>
-        <li>Cars</li>
-        <li>My Booking</li>
-        <li>List cars</li>
-        <li>Login</li>
-      </ul>
+        <ul className="flex flex-col gap-4  *:text-[16px] *:text-gray-600 *:cursor-pointer">
+          <li
+            onClick={() => {
+              navigate("/");
+              setIsOpen(false);
+            }}
+          >
+            Home
+          </li>
+          <li
+            onClick={() => {
+              navigate("/cars");
+              setIsOpen(false);
+            }}
+          >
+            Cars
+          </li>
+          <li
+            onClick={() => {
+              navigate("/MyBooking");
+              setIsOpen(false);
+            }}
+          >
+            My Booking
+          </li>
+          <li>List Cars</li>
+        </ul>
+        <button
+          onClick={() => {
+            setIsOpenLogin(true);
+            setIsOpen(false);
+          }}
+          className="bg-[#2563eb] rounded-lg text-white px-8 py-2"
+        >
+          Login
+        </button>
+      </div>
     </header>
   );
 };
